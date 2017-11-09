@@ -1,23 +1,38 @@
-FROM ubuntu:16.04
+#cyan-net-Ngrok
 
-# install dependencies (make, add-apt-repository, git)
+#===== Image information =====
+FROM ubuntu:16.04
+MAINTAINER DreamInSun<yancy_chen@hotmail.com>
+
+#===== Environment =====
+ENV		DOMAIN 		example.cyan.cc
+ENV		HTTP_PORT	80
+ENV 	HTTPS_PORT	443
+
+#===== install dependencies =====
 RUN apt update && apt install -y build-essential software-properties-common git
 
-# install golang
+#===== install golang =====
 RUN add-apt-repository ppa:longsleep/golang-backports && \
 	apt-get update && \
 	apt-get -y install golang-go
 
-# clone ngrok source
+#===== clone ngrok source =====
 RUN cd /opt &&\
 	git clone https://github.com/inconshreveable/ngrok.git ngrok && \
 	cd ngrok && \
 	make deps && \
 	make bin/go-bindata
 
-
 ADD static_server.go /opt
 ADD entrypoint.sh /opt
 
+#===== Exppose =====
+EXPOSE 80
+EXPOSE 443
+EXPOSE 4443
+EXPOSE 8080
+
+#===== Start =====
 RUN chmod a+x /opt/entrypoint.sh
 ENTRYPOINT ["/opt/entrypoint.sh"]
