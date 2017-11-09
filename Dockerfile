@@ -19,4 +19,5 @@ RUN cd /opt &&\
 ADD static_server.go /opt
 ADD entrypoint.sh /opt
 
-ENTRYPOINT ["/opt/entrypoint.sh"]
+RUN sudo chmod a+x /opt/entrypoint.sh
+ENTRYPOINT ["sudo /opt/entrypoint.sh"]
