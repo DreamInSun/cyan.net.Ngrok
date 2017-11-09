@@ -43,5 +43,5 @@ nohup go run /opt/static_server.go >> static_server.log 2>&1 &
 ./bin/ngrokd -tlsKey=/data/${DOMAIN}/certs/device.key \
     -tlsCrt=/data/${DOMAIN}/certs/device.crt \
     -domain="${DOMAIN}" \
-    -httpAddr="${HTTP_PORT}" \
-    -httpsAddr="${HTTPS_PORT}"
+    -httpAddr=":${HTTP_PORT}" \
+    -httpsAddr=":${HTTPS_PORT}"
