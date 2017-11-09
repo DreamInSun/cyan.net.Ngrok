@@ -28,10 +28,13 @@ ADD static_server.go /opt
 ADD entrypoint.sh /opt
 
 #===== Exppose =====
+#DDNS port
 EXPOSE 80
 EXPOSE 443
+
+#Ngrok port 
 EXPOSE 4443
-EXPOSE 8080
+EXPOSE 4040
 
 #===== Start =====
 RUN chmod a+x /opt/entrypoint.sh
