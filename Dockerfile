@@ -24,6 +24,9 @@ RUN cd /opt &&\
 	make deps && \
 	make bin/go-bindata
 
+# Prebuild Server 
+RUN cd /opt/ngrok && make release-server
+
 ADD static_server.go /opt
 ADD entrypoint.sh /opt
 

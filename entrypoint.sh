@@ -2,24 +2,26 @@
 
 set -ex
 
+#========== Environment Checking ==========
 if [ -z $DOMAIN ]; then
     echo '$DOMAIN must be set'
     exit 1
 fi
 
-# generate certs
-mkdir -p /data/$DOMAIN/certs && cd /data/$DOMAIN/certs
-openssl genrsa -out rootCA.key 2048
-openssl req -x509 -new -nodes -key rootCA.key -subj "/CN=$DOMAIN" -days 5000 -out rootCA.pem
-openssl genrsa -out device.key 2048
-openssl req -new -key device.key -subj "/CN=$DOMAIN" -out device.csr
-openssl x509 -req -in device.csr -CA rootCA.pem -CAkey rootCA.key -CAcreateserial -out device.crt -days 5000
+#========== Generate certs is not exist ==========
+if [ ! -d "/data/$DOMAIN/certs"]; then
+	mkdir -p /data/$DOMAIN/certs && cd /data/$DOMAIN/certs
+	openssl genrsa -out rootCA.key 2048
+	openssl req -x509 -new -nodes -key rootCA.key -subj "/CN=$DOMAIN" -days 5000 -out rootCA.pem
+	openssl genrsa -out device.key 2048
+	openssl req -new -key device.key -subj "/CN=$DOMAIN" -out device.csr
+	openssl x509 -req -in device.csr -CA rootCA.pem -CAkey rootCA.key -CAcreateserial -out device.crt -days 5000
+fi
 
+#========== Build server ==========
+# cd /opt/ngrok && make release-server
 
-# build server
-cd /opt/ngrok && make release-server
-
-# build client
+#========== build client ==========
 cp /data/$DOMAIN/certs/rootCA.pem assets/client/tls/ngrokroot.crt
 for os in "darwin" "linux"; do
     for arch in "amd64"; do
@@ -38,6 +40,7 @@ for os in "darwin" "linux"; do
     done
 done
 
+#========== Start server ==========
 nohup go run /opt/static_server.go >> static_server.log 2>&1 &
 
 ./bin/ngrokd -tlsKey=/data/${DOMAIN}/certs/device.key \
