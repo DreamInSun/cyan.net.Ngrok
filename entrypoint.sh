@@ -32,7 +32,7 @@ done
 mkdir -p /data/$DOMAIN/bin
 cp /opt/ngrok/bin/ngrok  /data/$DOMAIN/bin/ngrok-linux-amd64
 cp /opt/ngrok/bin/ngrokd /data/$DOMAIN/bin/ngrokd-linux-amd64
-for os in "darwin" "linux"; do
+for os in "darwin" "linux" "windows"; do
     for arch in "amd64"; do
         if [ -e /opt/ngrok/bin/${os}_${arch}/ngrok ]; then
             cp /opt/ngrok/bin/${os}_${arch}/ngrok /data/$DOMAIN/bin/ngrok-${os}-${arch}
