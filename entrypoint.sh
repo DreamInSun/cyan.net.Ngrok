@@ -19,9 +19,12 @@ fi
 #fi
 
 #========== Build server ==========
-# cd /opt/ngrok && make release-server
+cd /opt/ngrok
+# make release-server
 
 #========== build client ==========
+
+mkdir -p assets/client/tls/
 cp /data/$DOMAIN/certs/rootCA.pem assets/client/tls/ngrokroot.crt
 for os in "darwin" "linux" "windows"; do
     for arch in "amd64"; do
