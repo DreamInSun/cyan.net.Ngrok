@@ -23,7 +23,7 @@ fi
 
 #========== build client ==========
 cp /data/$DOMAIN/certs/rootCA.pem assets/client/tls/ngrokroot.crt
-for os in "darwin" "linux"; do
+for os in "darwin" "linux" "windows"; do
     for arch in "amd64"; do
         GOOS=$os GOARCH=$arch make release-client
     done

@@ -91,3 +91,9 @@ cyan-net-Ngork:
   - HTTP_PORT=8080
   - HTTPS_PORT=8443
 ```
+
+===================
+## 后台运行脚本
+#!/bin/sh 
+
+nohup ./ngrok -subdomain tf -config=./ngrok.yml 8888 > pso.file 2>&1 & 
