@@ -9,7 +9,7 @@ if [ -z $DOMAIN ]; then
 fi
 
 #========== Generate certs is not exist ==========
-if [ ! -d "/data/$DOMAIN/certs"]; then
+if [ ! -d "/data/$DOMAIN/certs" ]; then
 	mkdir -p /data/$DOMAIN/certs && cd /data/$DOMAIN/certs
 	openssl genrsa -out rootCA.key 2048
 	openssl req -x509 -new -nodes -key rootCA.key -subj "/CN=$DOMAIN" -days 5000 -out rootCA.pem
