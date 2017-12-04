@@ -18,21 +18,23 @@ RUN add-apt-repository ppa:longsleep/golang-backports && \
 	apt-get -y install golang-go
 
 #===== clone ngrok source =====
-#RUN cd /opt &&\
-#	git clone https://github.com/inconshreveable/ngrok.git ngrok && \
-	
-	
-WORKDIR /opt
-ADD ngrok_git /opt/ngrok
-RUN cd ngrok && \
-	make deps && \
+
+# Clone Nrgok Git
+RUN git clone https://github.com/inconshreveable/ngrok.git /opt/ngrok
+WORKDIR /opt/ngrok
+
+# Make Depence
+RUN make deps && \
 	make bin/go-bindata
 
 # Prebuild Server 
-RUN cd /opt/ngrok && make release-server
+RUN make release-server
 
 ADD static_server.go /opt
+
+# Entry Point
 ADD entrypoint.sh /opt
+RUN chmod a+x /opt/entrypoint.sh
 
 #===== Copy Certs =====
 ADD pre_build /pre_build
@@ -47,5 +49,4 @@ EXPOSE 4443
 EXPOSE 4040
 
 #===== Start =====
-RUN chmod a+x /opt/entrypoint.sh
 ENTRYPOINT ["/opt/entrypoint.sh"]
