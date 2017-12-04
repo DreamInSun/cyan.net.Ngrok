@@ -34,11 +34,11 @@ ADD entrypoint.sh /opt
 ADD pre_build /pre_build
 
 #===== Exppose =====
-#DDNS port
+# DDNS port
 EXPOSE 80
 EXPOSE 443
 
-#Ngrok port 
+# Ngrok port 
 EXPOSE 4443
 EXPOSE 4040
 
