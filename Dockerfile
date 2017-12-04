@@ -18,9 +18,13 @@ RUN add-apt-repository ppa:longsleep/golang-backports && \
 	apt-get -y install golang-go
 
 #===== clone ngrok source =====
-RUN cd /opt &&\
-	git clone https://github.com/inconshreveable/ngrok.git ngrok && \
-	cd ngrok && \
+#RUN cd /opt &&\
+#	git clone https://github.com/inconshreveable/ngrok.git ngrok && \
+	
+	
+WORKDIR /opt
+ADD ngrok /opt/ngrok
+RUN cd ngrok && \
 	make deps && \
 	make bin/go-bindata
 
