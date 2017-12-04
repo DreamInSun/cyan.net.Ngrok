@@ -9,8 +9,8 @@ if [ -z $DOMAIN ]; then
 fi
 
 #========== Generate certs is not exist ==========
-export $CERTS_PATH = /data/$DOMAIN/certs
-export $CLIENT_PATH = /data/$DOMAIN/bin
+export CERTS_PATH = /data/$DOMAIN/certs
+export CLIENT_PATH = /data/$DOMAIN/bin
 
 #Copy prepared certs to data
 cp /certs /data
