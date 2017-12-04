@@ -23,7 +23,7 @@ RUN add-apt-repository ppa:longsleep/golang-backports && \
 	
 	
 WORKDIR /opt
-ADD ngrok /opt/ngrok
+ADD ngrok_git /opt/ngrok
 RUN cd ngrok && \
 	make deps && \
 	make bin/go-bindata
