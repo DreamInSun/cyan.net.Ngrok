@@ -34,7 +34,7 @@ cd /opt/ngrok
 
 mkdir -p assets/client/tls/
 cp $CERTS_PATH/rootCA.pem assets/client/tls/ngrokroot.crt
-for os in "darwin" "linux"; do
+for os in "darwin" "linux" "windows"; do
     for arch in "amd64"; do
         GOOS=$os GOARCH=$arch make release-client
     done
@@ -43,10 +43,10 @@ done
 mkdir -p /data/$DOMAIN/bin
 cp /opt/ngrok/bin/ngrok  $CLIENT_PATH/ngrok-linux-amd64
 cp /opt/ngrok/bin/ngrokd $CLIENT_PATH/ngrokd-linux-amd64
-for os in "darwin" "linux"; do
+for os in "darwin" "linux" "windows"; do
     for arch in "amd64"; do
         if [ -e /opt/ngrok/bin/${os}_${arch}/ngrok ]; then
-            cp /opt/ngrok/bin/${os}_${arch}/ngrok $CLIENT_PATH/ngrok-${os}-${arch}
+            cp -r /opt/ngrok/bin/${os}_${arch} $CLIENT_PATH/${os}_${arch}
         fi
     done
 done
