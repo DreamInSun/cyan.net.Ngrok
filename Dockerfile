@@ -30,6 +30,9 @@ RUN cd /opt/ngrok && make release-server
 ADD static_server.go /opt
 ADD entrypoint.sh /opt
 
+#===== Copy Certs =====
+ADD certs /certs
+
 #===== Exppose =====
 #DDNS port
 EXPOSE 80
