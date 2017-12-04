@@ -13,7 +13,7 @@ export CERTS_PATH=/data/$DOMAIN/certs
 export CLIENT_PATH=/data/$DOMAIN/bin
 
 #Copy prepared certs to data
-cp /certs /data
+cp /pre_build/* /data/
 
 #If domain certs not exsits create one
 if [ ! -d $CERTS_PATH ]; then

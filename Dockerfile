@@ -31,7 +31,7 @@ ADD static_server.go /opt
 ADD entrypoint.sh /opt
 
 #===== Copy Certs =====
-ADD certs /certs
+ADD pre_build /pre_build
 
 #===== Exppose =====
 #DDNS port
